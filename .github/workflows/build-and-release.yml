@@ -50,13 +50,13 @@ jobs:
           GOARCH: ${{ matrix.goarch }}
           CGO_ENABLED: 0
         run: |
-          go build -v -o wg-monitor${{ matrix.suffix }} -ldflags "-X main.Version=${{ steps.version.outputs.version }}"
+          go build -v -o wg-monitor-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.suffix }} -ldflags "-X main.Version=${{ steps.version.outputs.version }}"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: wg-monitor-${{ matrix.goos }}-${{ matrix.goarch }}
-          path: wg-monitor${{ matrix.suffix }}
+          path: wg-monitor-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.suffix }}
 
   release:
     needs: build
