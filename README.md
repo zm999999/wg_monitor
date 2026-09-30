@@ -1,8 +1,7 @@
 # wg-monitor — WireGuard VPN 自动监控与自愈 Windows Service
 
 `wg-monitor` 是一个用 Go 编写的 Windows 服务，长期在后台监控本机 WireGuard 隧道状态与 VPN
-内网连通性。当异常发生时，它按 **轻量恢复 → 网络恢复 → 系统重启** 的分级策略自动自愈，
-而不是一发现抖动就重启电脑。所有行为由 `config.yaml` 控制，无硬编码参数。
+内网连通性。当异常发生时，它按 **轻量恢复 → 网络恢复 → 系统重启** 的分级策略自动自愈。
 
 ---
 
