@@ -1,0 +1,30 @@
+# ===== 编译产物（Go / Windows） =====
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go 测试与覆盖率产物
+*.test
+*.out
+
+# ===== 本地配置（保留 config.yaml.example 作为模板） =====
+config.yaml
+/config.yaml
+
+# ===== 运行产物：日志、状态目录、重启记录 =====
+*.log
+logs/
+state/
+
+# ===== 本地项目数据（记忆 / 缓存，不入库） =====
+.workbuddy/
+
+# ===== 编辑器 / 操作系统垃圾文件 =====
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

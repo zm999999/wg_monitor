@@ -1,0 +1,19 @@
+# 最小化配置样例：仅包含必填项，其余参数使用内置默认值。
+
+wireguard:
+  service_name: "WireGuardTunnel$my-tunnel"   # 必填：实际隧道服务名
+  interface_name: "my-tunnel"                  # 必填：WireGuard 接口名
+
+targets:                                        # 必填：至少一个 VPN 内网探测目标
+  - host: "10.10.0.1"
+    port: 443
+    protocol: "tcp"
+
+network:
+  adapter_name: "Ethernet"                      # 必填：二级恢复重启的网卡名
+
+logging:
+  file: "C:\\ProgramData\\WGMonitor\\logs\\monitor.log"   # 必填：日志文件路径
+
+windows:
+  state_dir: "C:\\ProgramData\\WGMonitor\\state"          # 必填：跨重启状态（重启记录）目录

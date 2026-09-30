@@ -1,0 +1,75 @@
+# wg-monitor configuration example.
+# Copy to C:\ProgramData\WGMonitor\config.yaml and edit for your environment.
+# Every tunable is configurable here — nothing is hard-coded in the program.
+
+wireguard:
+  # Windows service name of the WireGuard tunnel. Usually WireGuardTunnel$<name>.
+  service_name: "WireGuardTunnel$my-tunnel"
+  # The WireGuard interface name passed to `wg show <interface>`.
+  interface_name: "my-tunnel"
+  # How old a latest handshake may be before the peer is considered stale.
+  handshake_timeout: 180s
+  # Path to wg.exe. Leave as "wg.exe" to use the one on PATH.
+  wg_executable: "wg.exe"
+
+health:
+  # Check interval.
+  interval: 10s
+  # After service start, do not perform ANY recovery for this long (Windows boot).
+  startup_grace_period: 120s
+  # Minimum number of VPN targets that must be reachable for the VPN to be healthy.
+  min_success_targets: 1
+
+# VPN internal targets. TCP is preferred (proves the business port is reachable).
+# Configure at least two; the VPN is considered reachable if at least
+# min_success_targets succeed.
+targets:
+  - host: "10.10.0.1"
+    port: 443
+    protocol: "tcp"
+
+  - host: "10.10.0.2"
+    port: 5432
+    protocol: "tcp"
+
+# Optional public-internet probe (informational only; does not block the verdict).
+internet:
+  host: "8.8.8.8"
+  port: 53
+  protocol: "tcp"
+
+network:
+  # Name of the physical adapter to restart as the second recovery level.
+  adapter_name: "Ethernet"
+
+recovery:
+  # Escalation thresholds (continuous-unhealthy duration).
+  wg_restart_after: 30s
+  network_restart_after: 90s
+  computer_restart_after: 180s
+
+  # Pause after each recovery action before re-evaluating.
+  wg_restart_wait: 10s
+  network_restart_wait: 15s
+
+  # Caps per level before escalating.
+  max_wg_restart: 3
+  max_network_restart: 2
+
+  # Infinite-reboot protection.
+  max_reboot_per_hour: 1
+  reboot_cooldown: 30m
+
+  # Minimum stable time after any recovery before another may start.
+  recovery_cooldown: 60s
+
+logging:
+  level: "INFO"   # DEBUG | INFO | WARN | ERROR
+  file: "C:\\ProgramData\\WGMonitor\\logs\\monitor.log"
+  max_size_mb: 50
+  max_backups: 5
+
+windows:
+  service_name: "WGMonitor"
+  event_source: "WGMonitor"
+  state_dir: "C:\\ProgramData\\WGMonitor\\state"
