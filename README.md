@@ -324,3 +324,7 @@ type Controller interface {        // system.Controller
 
 更深入的架构、接口契约、状态机约束与"改什么看哪个文件"的任务入口表，见仓库内的
 [`AGENT.md`](./AGENT.md)，供后续 Agent / 协作者开发时遵循。
+
+## 许可证
+
+本项目基于 Apache License 2.0 开源，详见 [LICENSE](LICENSE)。
